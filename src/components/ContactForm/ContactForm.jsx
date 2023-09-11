@@ -1,6 +1,9 @@
 import { Component } from 'react';
 
-import Notiflix from 'notiflix';
+// import Notiflix from 'notiflix';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+
 import { Button, Form, Input, Label } from './ContactForm.styled';
 
 const INITIAL_STATE = { name: '', number: '' };
@@ -22,21 +25,25 @@ class ContactForm extends Component {
     );
     if (contactExists) {
       // alert(`${name} is already in contacts.`);
-      Notiflix.Report.failure(
-        'Contact already exists',
-        `${name} is already in contacts`,
-        'Back'
-      );
+
+      // Notiflix.Report.failure(
+      //   'Contact already exists',
+      //   `${name} is already in contacts`,
+      //   'Back'
+      // );
+
+      toast.error(`"${name}" is already in contacts`);
       return;
     }
 
     // this.props.createContact(this.state);
     this.props.createContact({ name, number });
-    Notiflix.Report.success(
-      'Contact created',
-      `${name} is now in your contacts`,
-      'Done'
-    );
+    // Notiflix.Report.success(
+    //   'Contact created',
+    //   `${name} is now in your contacts`,
+    //   'Done'
+    // );
+    toast.success(`"${name}" is now in your contacts`);
 
     this.setState({ ...INITIAL_STATE });
   };
